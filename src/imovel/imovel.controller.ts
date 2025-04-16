@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ImovelService } from './imovel.service';
 import { CreateImovelDto } from './dto/create-imovel.dto';
 import { UpdateImovelDto } from './dto/update-imovel.dto';
+import { IMOVEIS } from './data/imoveis.data';
 
 @Controller('imovel')
 export class ImovelController {
@@ -12,15 +13,25 @@ export class ImovelController {
     return this.imovelService.create(createImovelDto);
   }
 
+  // @Get()
+  // findAll() {
+  //   return this.imovelService.findAll();
+  // }
+
   @Get()
   findAll() {
-    return this.imovelService.findAll();
+    return IMOVEIS;
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.imovelService.findOne(+id);
+    return IMOVEIS.find(imovel => imovel.id === +id);
   }
+
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.imovelService.findOne(+id);
+  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateImovelDto: UpdateImovelDto) {
